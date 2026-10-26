@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>여행 일본어 단어장</title>
-  
-  <!-- Standalone Mobile App Configuration -->
+
+  <!-- 독립 실행 모바일 웹 앱 설정 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,143 +17,93 @@
   <style>
     :root {
       --bg: #FAF7F5;
-      --surface: #FFFFFF;
-      --surface-sub: #F3EEEA;
-      --text: #262322;
-      --text-muted: #827C78;
-      --accent: #E05D5D;
-      --accent-soft: #FFEBEB;
-      --accent-border: #FFCDCD;
-      --jp-text: #191817;
-      --badge-bg: #EAE5E1;
-      --border: #E8E2DD;
-      --shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-      --radius: 16px;
-    }
-
-    [data-theme="dark"] {
-      --bg: #141312;
-      --surface: #1E1D1B;
-      --surface-sub: #2A2826;
-      --text: #EAE6E3;
-      --text-muted: #9C9692;
-      --accent: #FF7B7B;
-      --accent-soft: #382020;
-      --accent-border: #5A2A2A;
-      --jp-text: #FFFFFF;
-      --badge-bg: #302D2B;
-      --border: #33302E;
-      --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      --card-bg: #FFFFFF;
+      --text-main: #2D3142;
+      --text-sub: #6B7280;
+      --accent: #E0564C;
+      --accent-soft: #FDE8E7;
+      --border: #E5E7EB;
+      --tag-bg: #F3F4F6;
+      --star: #F59E0B;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
       background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
+      color: var(--text-main);
       padding-bottom: 90px;
+      user-select: none;
     }
 
-    /* Header */
     header {
       position: sticky;
       top: 0;
-      z-index: 30;
-      background-color: var(--bg);
+      background: rgba(250, 247, 245, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      padding: max(16px, env(safe-area-inset-top)) 20px 12px;
+      z-index: 100;
+      padding: 14px 16px 10px;
       border-bottom: 1px solid var(--border);
     }
 
-    .header-top {
+    .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .app-title {
-      font-size: 1.25rem;
+    .top-bar h1 {
+      font-size: 20px;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      color: var(--accent);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .app-title .flag {
-      font-size: 1.4rem;
+    .stats {
+      font-size: 13px;
+      color: var(--text-sub);
+      font-weight: 500;
     }
 
-    .header-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .icon-btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--text);
-      transition: all 0.2s ease;
-    }
-
-    .icon-btn:active {
-      transform: scale(0.92);
-      background-color: var(--surface-sub);
-    }
-
-    /* Search Box */
-    .search-container {
+    .search-box {
       position: relative;
       margin-bottom: 10px;
     }
 
-    .search-input {
+    .search-box input {
       width: 100%;
-      background: var(--surface);
+      padding: 12px 14px 12px 38px;
       border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px 16px 12px 42px;
-      border-radius: 12px;
-      font-size: 0.95rem;
+      border-radius: 14px;
+      font-size: 14px;
+      background: #FFFFFF;
       outline: none;
-      transition: border-color 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
 
-    .search-input:focus {
+    .search-box input:focus {
       border-color: var(--accent);
     }
 
     .search-icon {
       position: absolute;
-      left: 14px;
+      left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-muted);
-      pointer-events: none;
+      font-size: 15px;
+      color: #9CA3AF;
     }
 
-    /* Category Pill Bar */
     .category-scroll {
       display: flex;
       gap: 8px;
@@ -161,847 +111,581 @@
       padding-bottom: 4px;
       scrollbar-width: none;
     }
+
     .category-scroll::-webkit-scrollbar {
       display: none;
     }
 
-    .cat-pill {
+    .tab-btn {
       flex-shrink: 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 7px 14px;
+      padding: 8px 14px;
       border-radius: 20px;
-      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      font-size: 13px;
       font-weight: 600;
+      color: var(--text-sub);
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
       transition: all 0.2s;
     }
 
-    .cat-pill.active {
+    .tab-btn.active {
       background: var(--accent);
       color: #FFFFFF;
       border-color: var(--accent);
-      box-shadow: 0 2px 8px rgba(224, 93, 93, 0.35);
     }
 
-    /* Main Vocab List */
     main {
-      padding: 16px 20px;
-      flex: 1;
-      max-width: 600px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .vocab-list {
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--card-bg);
+      border-radius: 18px;
       padding: 16px;
-      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       position: relative;
-      transition: transform 0.15s ease;
-    }
-
-    .card:active {
-      transform: scale(0.99);
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
     }
 
-    .korean-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      line-height: 1.35;
-      color: var(--text);
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      background: var(--tag-bg);
+      border-radius: 6px;
+      color: var(--text-sub);
+      font-weight: 600;
     }
 
     .card-actions {
       display: flex;
-      gap: 4px;
       align-items: center;
-      flex-shrink: 0;
+      gap: 8px;
     }
 
-    .star-btn, .speaker-btn, .copy-btn, .show-btn {
-      background: transparent;
+    .icon-btn {
+      background: none;
       border: none;
-      color: var(--text-muted);
+      font-size: 18px;
       cursor: pointer;
-      padding: 6px;
-      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #9CA3AF;
+      padding: 4px;
     }
 
-    .star-btn.bookmarked {
-      color: #FFB300;
+    .icon-btn.starred {
+      color: var(--star);
     }
 
-    .star-btn:active, .speaker-btn:active, .copy-btn:active, .show-btn:active {
-      background-color: var(--surface-sub);
+    .ko-text {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
     }
 
-    /* Japanese Presentation Area */
-    .jp-block {
-      background: var(--surface-sub);
-      padding: 12px 14px;
+    .jp-box {
+      background: #F9FAFB;
       border-radius: 12px;
+      padding: 12px;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+
+    .jp-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 2px;
+      line-height: 1.4;
+    }
+
+    .furigana {
+      font-size: 12px;
+      color: #9CA3AF;
+      font-weight: 500;
+    }
+
+    .pronunciation {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    .tip {
+      font-size: 12px;
+      color: #6B7280;
+      background: #F3F4F6;
+      border-left: 3px solid var(--accent);
+      padding: 6px 10px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 4px;
+    }
+
+    .fab {
+      position: fixed;
+      right: 20px;
+      bottom: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 28px;
+      background: var(--accent);
+      color: #FFFFFF;
+      border: none;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(224, 86, 76, 0.4);
+      cursor: pointer;
+      z-index: 90;
+    }
+
+    /* 전체화면 보기 모달 */
+    .fullscreen-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #FFFFFF;
+      z-index: 200;
+      padding: 24px 20px;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .fullscreen-modal.active {
+      display: flex;
+    }
+
+    .modal-close {
+      align-self: flex-end;
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: #6B7280;
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .big-jp {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.4;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+
+    .big-furi {
+      font-size: 18px;
+      color: #9CA3AF;
+      margin-bottom: 20px;
+    }
+
+    .big-ko {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .big-pron {
+      font-size: 17px;
+      color: #4B5563;
+    }
+
+    /* 단어 추가 모달 */
+    .add-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 210;
+      align-items: flex-end;
+    }
+
+    .add-modal.active {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: #FFFFFF;
+      width: 100%;
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 32px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 12px;
+    }
+
+    .modal-sheet input, .modal-sheet select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .btn-submit {
+      background: var(--accent);
+      color: #FFFFFF;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
-      border: 1px dashed transparent;
-    }
-
-    .jp-block:hover {
-      border-color: var(--border);
-    }
-
-    .furigana-text {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
-    }
-
-    .kanji-text {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--jp-text);
-      line-height: 1.3;
-    }
-
-    .pronunciation-box {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 4px;
-      background: var(--accent-soft);
-      border: 1px solid var(--accent-border);
-      color: var(--accent);
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      align-self: flex-start;
-    }
-
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      padding-top: 4px;
-    }
-
-    .tip-badge {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--badge-bg);
-      padding: 3px 8px;
-      border-radius: 6px;
-      max-width: 80%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      margin-top: 6px;
     }
 
     .empty-state {
       text-align: center;
-      padding: 50px 20px;
-      color: var(--text-muted);
-    }
-    .empty-state svg {
-      margin-bottom: 12px;
-      opacity: 0.4;
-    }
-
-    /* Floating Add Action Button */
-    .fab {
-      position: fixed;
-      bottom: max(24px, env(safe-area-inset-bottom));
-      right: 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      box-shadow: 0 6px 20px rgba(224, 93, 93, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 40;
-      transition: transform 0.2s;
-    }
-
-    .fab:active {
-      transform: scale(0.92);
-    }
-
-    /* Modal / Popups */
-    .modal-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-backdrop.active {
-      display: flex;
-    }
-
-    .modal-card {
-      background: var(--surface);
-      border-radius: 20px;
-      max-width: 440px;
-      width: 100%;
-      padding: 24px;
-      border: 1px solid var(--border);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.95rem;
-      outline: none;
-    }
-    .form-control:focus {
-      border-color: var(--accent);
-    }
-
-    .modal-btn-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-secondary {
-      background: var(--surface-sub);
-      color: var(--text);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #FFFFFF;
-    }
-
-    /* Fullscreen Staff Show Overlay */
-    .fullscreen-card-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: var(--bg);
-      z-index: 200;
-      display: none;
-      flex-direction: column;
-      padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
-      justify-content: space-between;
-      text-align: center;
-    }
-
-    .fullscreen-card-overlay.active {
-      display: flex;
-    }
-
-    .fs-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .fs-instruction {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      background: var(--surface-sub);
-      padding: 6px 14px;
-      border-radius: 20px;
-    }
-
-    .fs-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      padding: 20px 0;
-    }
-
-    .fs-furi {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-    }
-
-    .fs-jp {
-      font-size: 2.8rem;
-      font-weight: 800;
-      line-height: 1.3;
-      color: var(--jp-text);
-      word-break: keep-all;
-    }
-
-    .fs-pronounce {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--accent);
-      background: var(--accent-soft);
-      padding: 8px 18px;
-      border-radius: 12px;
-    }
-
-    .fs-ko {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    /* Toast Notification */
-    .toast {
-      position: fixed;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%) translateY(30px);
-      background: rgba(28, 26, 25, 0.92);
-      color: #FFFFFF;
-      padding: 10px 20px;
-      border-radius: 24px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      opacity: 0;
-      transition: all 0.25s ease;
-      pointer-events: none;
-      z-index: 300;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      padding: 40px 20px;
+      color: #9CA3AF;
+      font-size: 15px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Sticky Header -->
   <header>
-    <div class="header-top">
-      <div class="app-title">
-        <span class="flag">🇯🇵</span>
-        <span>여행 일본어 수첩</span>
-      </div>
-      <div class="header-actions">
-        <!-- Theme Toggle -->
-        <button class="icon-btn" id="themeBtn" aria-label="다크 모드 전환">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
-      </div>
+    <div class="top-bar">
+      <h1>🍣 여행 일본어</h1>
+      <span class="stats" id="totalCount">총 0개</span>
     </div>
-
-    <!-- Search Input -->
-    <div class="search-container">
-      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
-      <input type="text" id="searchInput" class="search-input" placeholder="한국어, 일본어, 발음으로 검색..." autocomplete="off">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="한국어, 일본어, 발음으로 검색...">
     </div>
-
-    <!-- Category Filter Tabs -->
     <div class="category-scroll" id="categoryScroll">
-      <button class="cat-pill active" data-cat="all">전체</button>
-      <button class="cat-pill" data-cat="fav">★ 즐겨찾기</button>
-      <button class="cat-pill" data-cat="식당">🍜 식당/카페</button>
-      <button class="cat-pill" data-cat="교통">🚇 교통/길찾기</button>
-      <button class="cat-pill" data-cat="쇼핑">🛍️ 쇼핑</button>
-      <button class="cat-pill" data-cat="숙소">🏨 숙소/호텔</button>
-      <button class="cat-pill" data-cat="편의점/긴급">🏪 편의점/긴급</button>
+      <button class="tab-btn active" data-cat="all">전체</button>
+      <button class="tab-btn" data-cat="fav">⭐ 즐겨찾기</button>
+      <button class="tab-btn" data-cat="식당">식당/카페</button>
+      <button class="tab-btn" data-cat="교통">교통/길찾기</button>
+      <button class="tab-btn" data-cat="쇼핑">쇼핑</button>
+      <button class="tab-btn" data-cat="숙소">숙소/호텔</button>
+      <button class="tab-btn" data-cat="긴급">긴급/편의점</button>
     </div>
   </header>
 
-  <!-- Word List Container -->
-  <main>
-    <div class="vocab-list" id="vocabContainer"></div>
+  <main id="cardList">
+    <!-- 단어 카드가 동적으로 들어옵니다 -->
   </main>
 
-  <!-- Floating Add Button -->
-  <button class="fab" id="addBtn" aria-label="새 표현 추가">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="12" y1="5" x2="12" y2="19"></line>
-      <line x1="5" y1="12" x2="19" y2="12"></line>
-    </svg>
-  </button>
+  <button class="fab" id="openAddModal" title="단어 추가">+</button>
 
-  <!-- Add Expression Modal -->
-  <div class="modal-backdrop" id="addModal">
-    <div class="modal-card">
-      <div class="modal-title">
-        <span>나만의 표현 추가하기</span>
-        <button class="icon-btn" id="closeModalBtn" style="border:none;">✕</button>
-      </div>
-      <form id="addForm">
-        <div class="form-group">
-          <label>카테고리</label>
-          <select id="modalCat" class="form-control" required>
-            <option value="식당">🍜 식당/카페</option>
-            <option value="교통">🚇 교통/길찾기</option>
-            <option value="쇼핑">🛍️ 쇼핑</option>
-            <option value="숙소">🏨 숙소/호텔</option>
-            <option value="편의점/긴급">🏪 편의점/긴급</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>한국어 의미 (예: 물 좀 더 주세요)</label>
-          <input type="text" id="modalKo" class="form-control" placeholder="한국어 뜻 입력" required>
-        </div>
-        <div class="form-group">
-          <label>일본어 한자/가나 (예: お水のおかわりください)</label>
-          <input type="text" id="modalJp" class="form-control" placeholder="일본어 문장" required>
-        </div>
-        <div class="form-group">
-          <label>후리가나 (읽는 법, 선택)</label>
-          <input type="text" id="modalFuri" class="form-control" placeholder="おみずのおかわりください">
-        </div>
-        <div class="form-group">
-          <label>한국어 발음 (예: 오미즈노 오카와리 쿠다사이)</label>
-          <input type="text" id="modalPron" class="form-control" placeholder="한글 발음" required>
-        </div>
-        <div class="form-group">
-          <label>여행 팁 또는 메모 (선택)</label>
-          <input type="text" id="modalTip" class="form-control" placeholder="예: 무료 제공되는 식당에서 사용">
-        </div>
-        <div class="modal-btn-row">
-          <button type="button" class="btn btn-secondary" id="cancelModalBtn">취소</button>
-          <button type="submit" class="btn btn-primary">저장하기</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Fullscreen Staff Show Mode Overlay -->
-  <div class="fullscreen-card-overlay" id="fullscreenOverlay">
-    <div class="fs-header">
-      <span class="fs-instruction">점원에게 화면을 직접 보여주세요 👀</span>
-      <button class="icon-btn" id="closeFsBtn">✕</button>
-    </div>
-    <div class="fs-body">
-      <div class="fs-furi" id="fsFuri"></div>
-      <div class="fs-jp" id="fsJp"></div>
-      <div class="fs-pronounce" id="fsPron"></div>
-      <div class="fs-ko" id="fsKo"></div>
-    </div>
+  <!-- 크게 보여주기 모달 -->
+  <div class="fullscreen-modal" id="fsModal">
+    <button class="modal-close" id="closeFsModal">✕ 닫기</button>
     <div>
-      <button class="btn btn-primary" id="fsSpeakBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-        </svg>
-        음성으로 들려주기
-      </button>
+      <div class="big-jp" id="fsJp"></div>
+      <div class="big-furi" id="fsFuri"></div>
+      <div class="big-ko" id="fsKo"></div>
+      <div class="big-pron" id="fsPron"></div>
+    </div>
+    <div style="font-size: 13px; color: #9CA3AF; margin-bottom: 20px;">
+      💡 현지 직원이나 상대방에게 화면을 직접 보여주세요.
     </div>
   </div>
 
-  <!-- Toast Notification element -->
-  <div class="toast" id="toast">복사되었습니다</div>
+  <!-- 단어 추가 모달 -->
+  <div class="add-modal" id="addModal">
+    <div class="modal-sheet">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+        <h3 style="font-size: 17px; font-weight: 700;">새 표현 추가</h3>
+        <button style="background:none; border:none; font-size: 18px; color:#9CA3AF; cursor:pointer;" id="closeAddModal">✕</button>
+      </div>
+      <select id="newCat">
+        <option value="식당">식당/카페</option>
+        <option value="교통">교통/길찾기</option>
+        <option value="쇼핑">쇼핑</option>
+        <option value="숙소">숙소/호텔</option>
+        <option value="긴급">긴급/편의점</option>
+      </select>
+      <input type="text" id="newKo" placeholder="한국어 뜻 (예: 생맥주 주세요)">
+      <input type="text" id="newJp" placeholder="일본어 원문 (예: 生ビールください)">
+      <input type="text" id="newFuri" placeholder="히라가나 (예: なまびーる ください)">
+      <input type="text" id="newPron" placeholder="한국어 발음 (예: 나마비-루 쿠다사이)">
+      <input type="text" id="newTip" placeholder="메모 / 팁 (선택 사항)">
+      <button class="btn-submit" id="saveNewWord">저장하기</button>
+    </div>
+  </div>
 
   <script>
-    // 35+ Pre-populated practical travel dataset
-    const DEFAULT_VOCAB = [
-      // 🍜 식당/카페
-      { id: "d1", category: "식당", ko: "이거 하나 주세요 (메뉴판 가리키며)", jp: "これ、ひとつください", furigana: "これ、ひとつください", pron: "코레, 히토츠 쿠다사이", tip: "메뉴판 손가락으로 짚으며 말하면 100% 통함" },
-      { id: "d2", category: "식당", ko: "추천 메뉴가 무엇인가요?", jp: "おすすめはどれですか？", furigana: "おすすめは どれですか？", pron: "오스스메와 도레데스카?", tip: "고민될 때 점원에게 물어보기" },
-      { id: "d3", category: "식당", ko: "계산해 주세요", jp: "お会計お願いします", furigana: "おかいけい おねがいします", pron: "오카이케이 오네가이시마스", tip: "테이블 또는 카운터에서 외치면 됨" },
-      { id: "d4", category: "식당", ko: "따로따로 계산 가능한가요?", jp: "別々で会計できますか？", furigana: "べつべつで かいけい できますか？", pron: "베츠베츠데 카이케이 데키마스카?", tip: "더치페이할 때 필수" },
-      { id: "d5", category: "식당", ko: "얼음물 좀 주시겠어요?", jp: "お冷をお願いします", furigana: "おひやを おねがいします", pron: "오히야오 오네가이시마스", tip: "일본 식당의 시원한 물은 '오히야'" },
-      { id: "d6", category: "식당", ko: "고수 빼주세요", jp: "パクチーを抜いてください", furigana: "パクチーを ぬいてください", pron: "파쿠치-오 누이테 쿠다사이", tip: "라멘 파 뺄 땐 '네기 누이테'" },
-      { id: "d7", category: "식당", ko: "포장 되나요? (테이크아웃)", jp: "持ち帰りできますか？", furigana: "もちかえり できますか？", pron: "모치카에리 데키마스카?", tip: "'테이크아웃'도 잘 알아들음" },
-      { id: "d8", category: "식당", ko: "정말 잘 먹었습니다! (퇴점 인사)", jp: "ごちそうさまでした！", furigana: "ごちそうさまでした！", pron: "고치소-사마데시타!", tip: "가게 나갈 때 가볍게 인사하기" },
+    // 카테고리별 필수 표현 데이터셋 (총 60여 개)
+    const initialData = [
+      // 식당/카페
+      { id: 1, category: "식당", ko: "저기요 / 실례합니다 (주문할 때)", jp: "すみません", furigana: "すみません", pronunciation: "스미마센", tip: "점원을 부를 때 손을 살짝 들며 말하세요." },
+      { id: 2, category: "식당", ko: "이거 주세요", jp: "これをお願いします", furigana: "これを おねがいします", pronunciation: "코레오 오네가이시마스", tip: "메뉴판 손가락으로 가리키며 쓰기 좋습니다." },
+      { id: 3, category: "식당", ko: "추천 메뉴는 무엇인가요?", jp: "おすすめは何ですか？", furigana: "おすすめは なんですか？", pronunciation: "오스스메와 난데스카?", tip: "" },
+      { id: 4, category: "식당", ko: "계산해 주세요", jp: "お会計をお願いします", furigana: "おかいけいを おねがいします", pronunciation: "오카이케이오 오네가이시마스", tip: "테이블에서 또는 카운터에서 쓰입니다." },
+      { id: 5, category: "식당", ko: "생맥주 한 잔 주세요", jp: "生ビール一つお願いします", furigana: "なまびーる ひとつ おねがいします", pronunciation: "나마비-루 히토츠 오네가이시마스", tip: "2잔은 후타츠, 3잔은 밋츠입니다." },
+      { id: 6, category: "식당", ko: "찬물(얼음물) 좀 주세요", jp: "お冷をお願いします", furigana: "おひやを おねがいします", pronunciation: "오히야오 오네가이시마스", tip: "따뜻한 차는 '오차'라고 합니다." },
+      { id: 7, category: "식당", ko: "더치페이(따로 계산) 가능한가요?", jp: "別々でお会計できますか？", furigana: "べつべつで おかいけい できますか？", pronunciation: "베츠베츠데 오카이케이 데키마스카?", tip: "" },
+      { id: 8, category: "식당", ko: "와사비 빼주세요", jp: "わさび抜きでお願いします", furigana: "わさびぬきで おねがいします", pronunciation: "와사비누키데 오네가이시마스", tip: "초밥집 필수 표현!" },
+      { id: 9, category: "식당", ko: "포장(테이크아웃) 할게요", jp: "持ち帰りでお願いします", furigana: "もちかえりで おねがいします", pronunciation: "모치카에리데 오네가이시마스", tip: "'테이크아웃'도 잘 통합니다." },
+      { id: 10, category: "식당", ko: "잘 먹었습니다 (식사 후 인사)", jp: "ごちそうさ마でした", furigana: "ごちそうさまでした", pronunciation: "고치소-사마데시타", tip: "가게를 나갈 때 인사하면 좋습니다." },
+      { id: 11, category: "식당", ko: "카드 결제 되나요?", jp: "クレジットカードは使えますか？", furigana: "くれじっとかーどは つかえますか？", pronunciation: "쿠레짓토카-도와 츠카에마스카?", tip: "" },
+      { id: 12, category: "식당", ko: "한국어 메뉴판 있나요?", jp: "韓国語のメニューはありますか？", furigana: "かんこくごの めにゅーは ありますか？", pronunciation: "칸코쿠고노 메뉴-와 아리마스카?", tip: "" },
 
-      // 🚇 교통/길찾기
-      { id: "t1", category: "교통", ko: "이 열차 신주쿠 가나요?", jp: "この電車は新宿に行きますか？", furigana: "このでんしゃは しんじゅくに いきますか？", pron: "코노 덴샤와 신주쿠니 이키마스카?", tip: "역 이름만 바꿔서 유용하게 활용" },
-      { id: "t2", category: "교통", ko: "가장 가까운 전철역이 어디인가요?", jp: "一番近い駅はどこですか？", furigana: "いちばん ちかい えきは どこですか？", pron: "이치반 치카이 에키와 도코데스카?", tip: "길 잃었을 때 역부터 찾기" },
-      { id: "t3", category: "교통", ko: "여기서 내려주세요 (택시/버스)", jp: "ここで降ろしてください", furigana: "ここで おろしてください", pron: "코코데 오로시테 쿠다사이", tip: "택시 탈 때 필수" },
-      { id: "t4", category: "교통", ko: "표는 어디서 사나요?", jp: "切符はどこで買えますか？", furigana: "きっぷは どこで かえますか？", pron: "킵푸와 도코데 카에마스카?", tip: "승차권 발매기 찾을 때" },
-      { id: "t5", category: "교통", ko: "교통카드(스이카/이코카) 충전하고 싶어요", jp: "チャージしたいです", furigana: "チャージ したいです", pron: "챠-지 시타이데스", tip: "편의점 카운터나 매표기에서" },
-      { id: "t6", category: "교통", ko: "사진 한 장 찍어주시겠어요?", jp: "写真を撮っていただけますか？", furigana: "しゃしんを とって いただけますか？", pron: "샤신오 톳테 이타다케마스카?", tip: "카메라를 건네며 정중하게 부탁" },
+      // 교통/길찾기
+      { id: 13, category: "교통", ko: "~은 어디에 있나요?", jp: "〜はどこですか？", furigana: "〜は どこですか？", pronunciation: "~와 도코데스카?", tip: "역, 화장실 등의 단어를 앞에 붙이세요." },
+      { id: 14, category: "교통", ko: "스이카(교통카드) 충전 어디서 하나요?", jp: "Suicaのチャージはどこでできますか？", furigana: "すいかの ちゃーじは どこで できますか？", pronunciation: "스이카노 차-지와 도코데 데키마스카?", tip: "역 발권기나 편의점에서 가능합니다." },
+      { id: 15, category: "교통", ko: "이 열차 교토(신주쿠) 방면 가나요?", jp: "この電車は京都方面に行きますか？", furigana: "このでんしゃは きょうとほうめんに いきますか？", pronunciation: "코노 덴샤와 쿄-토호-멘니 이키마스카?", tip: "플랫폼 직원에게 확인해 보세요." },
+      { id: 16, category: "교통", ko: "편도 표 한 장 주세요", jp: "片道切符を一枚ください", furigana: "かたみちきっぷを いちまい ください", pronunciation: "카타미치 킵푸오 이치마이 쿠다사이", tip: "왕복은 '오-후쿠'입니다." },
+      { id: 17, category: "교통", ko: "여기서 걸어서 몇 분 걸리나요?", jp: "ここから歩いて何分かかりますか？", furigana: "ここから あるいて なんぷん かかりますか？", pronunciation: "코코카라 아루이테 난훈 카카리마스카?", tip: "" },
+      { id: 18, category: "교통", ko: "도착하면 알려주실 수 있나요?", jp: "着いたら教えていただけますか？", furigana: "ついたら おしえて いただけますか？", pronunciation: "츠이타라 오시에테 이타다케마스카?", tip: "버스나 택시에서 유용합니다." },
+      { id: 19, category: "교통", ko: "이 주소로 가주세요", jp: "この住所までお願いします", furigana: "この じゅうしょまで おねがいします", pronunciation: "코노 주-쇼마데 오네가이시마스", tip: "택시 탑승 시 지도나 화면을 보여주세요." },
+      { id: 20, category: "교통", ko: "여기서 세워주세요", jp: "ここで降ろしてください", furigana: "ここで おろして ください", pronunciation: "코코데 오로시테 쿠다사이", tip: "택시 하차 시 사용하는 표현입니다." },
+      { id: 21, category: "교통", ko: "화장실이 어디인가요?", jp: "トイレはどこですか？", furigana: "といれは どこですか？", pronunciation: "토이레와 도코데스카?", tip: "가장 빈도 높은 필수 질문!" },
+      { id: 22, category: "교통", ko: "출구는 어느 쪽인가요?", jp: "出口はどちらですか？", furigana: "でぐちは どちらですか？", pronunciation: "데구치와 도치라데스카?", tip: "" },
 
-      // 🛍️ 쇼핑
-      { id: "s1", category: "쇼핑", ko: "면세(Tax-Free) 되나요?", jp: "免税できますか？", furigana: "めんぜい できますか？", pron: "멘제- 데키마스카?", tip: "여권(Passport) 지참 필수!" },
-      { id: "s2", category: "쇼핑", ko: "입어봐도(신어봐도) 되나요?", jp: "試着してもいいですか？", furigana: "しちゃく しても いいですか？", pron: "시챠쿠 시테모 이이데스카?", tip: "피팅룸 들어가기 전 점원에게" },
-      { id: "s3", category: "쇼핑", ko: "다른 색상이나 사이즈 있나요?", jp: "他の色やサイズはありますか？", furigana: "ほかの いろや サイズは ありますか？", pron: "호카노 이로야 사이즈와 아리마스카?", tip: "물건 보여주며 질문" },
-      { id: "s4", category: "쇼핑", ko: "봉투는 괜찮습니다 (필요 없어요)", jp: "袋は大丈夫です", furigana: "ふくろは だいじょうぶです", pron: "후쿠로와 다이죠-부데스", tip: "유료 봉투 거절할 때 가장 깔끔한 표현" },
-      { id: "s5", category: "쇼핑", ko: "새 상품으로 주실 수 있나요?", jp: "新しいものはありますか？", furigana: "あたらしいものは ありますか？", pron: "아타라시이 모노와 아리마스카?", tip: "진열품 대신 재고 요청 시" },
-      { id: "s6", category: "쇼핑", ko: "카드로 결제할게요", jp: "カードでお願いします", furigana: "カードで おねがいします", pron: "카-도데 오네가이시마스", tip: "트래블월렛/로그 카드 사용 시" },
+      // 쇼핑
+      { id: 23, category: "쇼핑", ko: "면세(Tax-Free) 되나요?", jp: "免税になりますか？", furigana: "めんぜいに なりますか？", pronunciation: "멘제-니 나리마스카?", tip: "여권을 꼭 소지하고 있어야 합니다." },
+      { id: 24, category: "쇼핑", ko: "새 제품(새 것)으로 있나요?", jp: "新しいものはありますか？", furigana: "あたらしいものは ありますか？", pronunciation: "아타라시이 모노와 아리마스카?", tip: "디스플레이 상품 대신 새것 요청 시!" },
+      { id: 25, category: "쇼핑", ko: "입어봐도(신어봐도) 되나요?", jp: "試着してもいいですか？", furigana: "しちゃくしても いいですか？", pronunciation: "시차쿠 시테모 이이데스카?", tip: "피팅룸 이용 전에 물어보세요." },
+      { id: 26, category: "쇼핑", ko: "다른 색상(사이즈) 있나요?", jp: "他の色（サイズ）はありますか？", furigana: "ほかのいろ（さいず）は ありますか？", pronunciation: "호카노 이로 (사이즈)와 아리마스카?", tip: "" },
+      { id: 27, category: "쇼핑", ko: "이거 얼마인가요?", jp: "これはいくらですか？", furigana: "これは いくらですか？", pronunciation: "코레와 이쿠라데스카?", tip: "" },
+      { id: 28, category: "쇼핑", ko: "선물용으로 포장해 주세요", jp: "プレゼント用に包んでください", furigana: "ぷれぜんとように つつんで ください", pronunciation: "푸레젠토요-니 츠츠메데 쿠다사이", tip: "" },
+      { id: 29, category: "쇼핑", ko: "조금만 더 둘러보고 올게요", jp: "もう少し見てみます", furigana: "もうすこし みてみます", pronunciation: "모- 스코시 미테미마스", tip: "점원이 다가올 때 자연스럽게 거절하는 법!" },
+      { id: 30, category: "쇼핑", ko: "이걸로 할게요 (살게요)", jp: "これにします", furigana: "これに します", pronunciation: "코레니 시마스", tip: "" },
+      { id: 31, category: "쇼핑", ko: "봉투는 필요 없어요", jp: "袋はいりません", furigana: "ふくろは いりません", pronunciation: "후쿠로와 이리마센", tip: "가방에 바로 넣을 때 쓰입니다." },
+      { id: 32, category: "쇼핑", ko: "영수증 주세요", jp: "レシートをください", furigana: "れしーとを ください", pronunciation: "레시-토오 쿠다사이", tip: "" },
 
-      // 🏨 숙소/호텔
-      { id: "h1", category: "숙소", ko: "체크인 / 체크아웃 부탁합니다", jp: "チェックイン・アウトをお願いします", furigana: "チェックイン・アウトを おねがいします", pron: "첵쿠인 / 첵쿠아우토오 오네가이시마스", tip: "예약 바우처와 여권 준비" },
-      { id: "h2", category: "숙소", ko: "체크인 전에 짐을 맡길 수 있나요?", jp: "チェックイン前に荷物を預けられますか？", furigana: "チェックインまえに にもつを あずけられますか？", pron: "첵쿠인 마에니 니모츠오 아즈케라레마스카?", tip: "일찍 도착했을 때 짐 보관 필수" },
-      { id: "h3", category: "숙소", ko: "체크아웃 후 짐을 맡겨도 되나요?", jp: "チェックアウト後に荷物を預けられますか？", furigana: "チェックアウトごに にもつを あずけられますか？", pron: "첵쿠아우토 고니 니모츠오 아즈케라레마스카?", tip: "마지막 날 비행기 타기 전" },
-      { id: "h4", category: "숙소", ko: "수건을 더 받을 수 있을까요?", jp: "タオルを追加でいただけますか？", furigana: "タオルを ついかで いただけますか？", pron: "타오루오 츠이카데 이타다케마스카?", tip: "프런트에 요청할 때" },
-      { id: "h5", category: "숙소", ko: "Wi-Fi 비밀번호가 무엇인가요?", jp: "Wi-Fiのパスワードは何ですか？", furigana: "ワイファイの パスワードは なんですか？", pron: "와이파이노 파스와-도와 난데스카?", tip: "객실 룸키 케이스 확인 후 질문" },
+      // 숙소/호텔
+      { id: 33, category: "숙소", ko: "체크인 부탁드립니다", jp: "チェックインをお願いします", furigana: "ちぇっくいんを おねがいします", pronunciation: "첵쿠인오 오네가이시마스", tip: "여권을 함께 제시하세요." },
+      { id: 34, category: "숙소", ko: "체크아웃 부탁드립니다", jp: "チェックアウトをお願いします", furigana: "ちぇっくあうとを おねがいします", pronunciation: "첵쿠아우토오 오네가이시마스", tip: "키를 반납하며 말하세요." },
+      { id: 35, category: "숙소", ko: "체크인 전(후)에 짐을 맡길 수 있나요?", jp: "荷物を預かっていただけますか？", furigana: "にもつを あずかって いただけますか？", pronunciation: "니모츠오 아즈캇테 이타다케마스카?", tip: "여행 첫날/마지막 날 꿀표현!" },
+      { id: 36, category: "숙소", ko: "수건 더 주실 수 있나요?", jp: "タオルを追加していただけますか？", furigana: "たおるを ついか していただけますか？", pronunciation: "타오루오 츠이카 시테이타다케마스카?", tip: "" },
+      { id: 37, category: "숙소", ko: "와이파이 비밀번호가 무엇인가요?", jp: "Wi-Fiのパスワードは何ですか？", furigana: "わいふぁいの ぱすわーどは なんですか？", pronunciation: "와이파이노 파스와-도와 난데스카?", tip: "" },
+      { id: 38, category: "숙소", ko: "택시 한 대만 불러주실 수 있나요?", jp: "タクシーを一台呼んでいただけますか？", furigana: "たくしーを いちだい よんで いただけますか？", pronunciation: "타쿠시-오 이치다이 욘데 이타다케마스카?", tip: "프런트에 요청할 때 유용합니다." },
+      { id: 39, category: "숙소", ko: "방 온도가 너무 추워요 (더워요)", jp: "部屋が寒いです（暑いです）", furigana: "へやが さむいです（あついです）", pronunciation: "헤야가 사무이데스 (아츠이데스)", tip: "에어컨/히터 리모컨 작동 문의 시" },
+      { id: 40, category: "숙소", ko: "청소는 안 해주셔도 괜찮습니다", jp: "掃除は大丈夫です", furigana: "そうじは だいじょうぶです", pronunciation: "소-지와 다이죠-부데스", tip: "Do Not Disturb 대신 사용할 수 있습니다." },
+      { id: 41, category: "숙소", ko: "방 키를 방 안에 두고 나왔어요", jp: "部屋に鍵を置いたまま出ました", furigana: "へやに かぎを おいたまま でました", pronunciation: "헤야니 카기오 오이타마마 데마시타", tip: "문이 잠겼을 때 프런트에 알리는 표현" },
 
-      // 🏪 편의점/긴급
-      { id: "c1", category: "편의점/긴급", ko: "도시락 따뜻하게 데워주세요", jp: "温めてください", furigana: "あたためてください", pron: "아타타메테 쿠다사이", tip: "편의점 도시락/삼각김밥 데울 때" },
-      { id: "c2", category: "편의점/긴급", ko: "젓가락 / 숟가락 챙겨주세요", jp: "お箸・スプーンをつけてください", furigana: "おはし・スプーンを つけてください", pron: "오하시 / 스푸-응오 츠케테 쿠다사이", tip: "간혹 빠뜨렸을 때 요청" },
-      { id: "c3", category: "편의점/긴급", ko: "화장실은 어디인가요?", jp: "トイレはどこですか？", furigana: "トイレは どこですか？", pron: "토이레와 도코데스카?", tip: "여행 중 가장 긴급할 때 쓰는 1순위 표현" },
-      { id: "c4", category: "편의점/긴급", ko: "근처에 약국이 있나요?", jp: "近くに薬局はありますか？", furigana: "ちかくに やっきょくは ありますか？", pron: "치카쿠니 얏쿄쿠와 아리마스카?", tip: "두통약, 소화제 필요할 때" },
-      { id: "c5", category: "편의점/긴급", ko: "두통약 / 소화제 주세요", jp: "頭痛薬・胃腸薬をください", furigana: "ずつうやく・いちょうやくを ください", pron: "즈츠-야쿠 / 이쵸-야쿠오 쿠다사이", tip: "드럭스토어에서 처방 요청" },
-      { id: "c6", category: "편의점/긴급", ko: "도와주세요! (긴급)", jp: "助けてください！", furigana: "たすけてください！", pron: "타스케테 쿠다사이!", tip: "위급 상황 시 큰 소리로 외치기" }
+      // 긴급/편의점
+      { id: 42, category: "긴급", ko: "이것 좀 데워주실 수 있나요?", jp: "温めていただけますか？", furigana: "あたためて いただけますか？", pronunciation: "아타타메테 이타다케마스카?", tip: "편의점 도시락 구입 시 필수!" },
+      { id: 43, category: "긴급", ko: "젓가락(숟가락) 주세요", jp: "お箸（スプーン）をください", furigana: "おはし（すぷーん）を ください", pronunciation: "오하시 (스푸-놀) 쿠다사이", tip: "" },
+      { id: 44, category: "긴급", ko: "봉투 하나 주세요", jp: "袋を一이라고おねがいします", furigana: "ふくろを いちまい おねがいします", pronunciation: "후쿠로오 이치마이 오네가이시마스", tip: "편의점 유료 봉투 구매 시" },
+      { id: 45, category: "긴급", ko: "소화제(두통약) 있나요?", jp: "胃腸薬（頭痛薬）はありますか？", furigana: "いちょうやく（ずつうやく）は ありますか？", pronunciation: "이초-야쿠 (즈츠-야쿠)와 아리마스카?", tip: "드럭스토어나 약국에서 사용하세요." },
+      { id: 46, category: "긴급", ko: "여권을 잃어버렸어요", jp: "パスポートを紛失しました", furigana: "ぱすぽーとを ふんしつしました", pronunciation: "파스포-토오 훈시츠 시마시타", tip: "경찰서나 분실물 센터에서" },
+      { id: 47, category: "긴급", ko: "지갑을 잃어버렸어요", jp: "財布を落としました", furigana: "さいふを おとしました", pronunciation: "사이후오 오토시마시타", tip: "" },
+      { id: 48, category: "긴급", ko: "도와주세요!", jp: "助けてください！", furigana: "たすけて ください！", pronunciation: "타스케테 쿠다사이!", tip: "긴급 상황 발생 시" },
+      { id: 49, category: "긴급", ko: "몸이 안 좋아요 (아파요)", jp: "具合が悪いです", furigana: "ぐあいが わるいです", pronunciation: "구아이가 와루이데스", tip: "" },
+      { id: 50, category: "긴급", ko: "한국어를 할 수 있는 분이 계신가요?", jp: "韓国語ができる方はいらっしゃいますか？", furigana: "かんこくごが できる かたは いらっしゃいますか？", pronunciation: "칸코쿠고가 데키루 카타와 이랏샤이마스카?", tip: "" }
     ];
 
-    // Local Storage keys
-    const STORAGE_KEY_CUSTOM = "jp_travel_custom_v1";
-    const STORAGE_KEY_FAVS = "jp_travel_favs_v1";
-    const STORAGE_KEY_THEME = "jp_travel_theme";
+    // LocalStorage 연동
+    let vocabList = JSON.parse(localStorage.getItem('my_jp_vocab')) || initialData;
+    let favorites = JSON.parse(localStorage.getItem('my_jp_favs')) || [];
+    let currentCategory = 'all';
 
-    // App State
-    let currentCategory = "all";
-    let searchQuery = "";
-    let bookmarks = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY_FAVS) || "[]"));
-    let customVocabs = JSON.parse(localStorage.getItem(STORAGE_KEY_CUSTOM) || "[]");
-    let fullVocabs = [];
-    let activeFsItem = null;
-
-    // DOM Elements
-    const vocabContainer = document.getElementById("vocabContainer");
-    const searchInput = document.getElementById("searchInput");
-    const categoryScroll = document.getElementById("categoryScroll");
-    const themeBtn = document.getElementById("themeBtn");
-    const addBtn = document.getElementById("addBtn");
-    const addModal = document.getElementById("addModal");
-    const closeModalBtn = document.getElementById("closeModalBtn");
-    const cancelModalBtn = document.getElementById("cancelModalBtn");
-    const addForm = document.getElementById("addForm");
-    const fullscreenOverlay = document.getElementById("fullscreenOverlay");
-    const closeFsBtn = document.getElementById("closeFsBtn");
-    const fsSpeakBtn = document.getElementById("fsSpeakBtn");
-    const toast = document.getElementById("toast");
-
-    // Initialize Vocab Data
-    function refreshData() {
-      fullVocabs = [...customVocabs, ...DEFAULT_VOCAB];
-      render();
+    function saveData() {
+      localStorage.setItem('my_jp_vocab', JSON.stringify(vocabList));
+      localStorage.setItem('my_jp_favs', JSON.stringify(favorites));
     }
 
-    // Save Bookmarks
-    function toggleBookmark(id) {
-      if (bookmarks.has(id)) {
-        bookmarks.delete(id);
-        showToast("즐겨찾기에서 해제되었습니다.");
-      } else {
-        bookmarks.add(id);
-        showToast("★ 즐겨찾기에 추가되었습니다!");
-      }
-      localStorage.setItem(STORAGE_KEY_FAVS, JSON.stringify([...bookmarks]));
-      render();
-    }
+    const cardList = document.getElementById('cardList');
+    const totalCount = document.getElementById('totalCount');
+    const searchInput = document.getElementById('searchInput');
 
-    // Offline TTS using Web Speech API
-    function speakJapanese(text) {
-      if (!('speechSynthesis' in window)) {
-        showToast("음성 합성을 지원하지 않는 브라우저입니다.");
-        return;
-      }
-      window.speechSynthesis.cancel(); // Stop current speech
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ja-JP';
-      utterance.rate = 0.9; // Slightly slower for clear learning
-      window.speechSynthesis.speak(utterance);
-    }
-
-    // Copy to Clipboard (Fallback safe)
-    function copyText(text) {
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showToast("일본어 문장이 복사되었습니다 📋");
-      } catch (err) {
-        showToast("복사에 실패했습니다.");
-      }
-      document.body.removeChild(textarea);
-    }
-
-    // Toast Alert
-    function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add("show");
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 1800);
-    }
-
-    // Render Filtered Vocab List
+    // 렌더링 함수
     function render() {
-      const query = searchQuery.trim().toLowerCase();
-      
-      const filtered = fullVocabs.filter(item => {
-        // Category filtering
-        if (currentCategory === "fav") {
-          if (!bookmarks.has(item.id)) return false;
-        } else if (currentCategory !== "all") {
+      const query = searchInput.value.trim().toLowerCase();
+      cardList.innerHTML = '';
+
+      let filtered = vocabList.filter(item => {
+        // 카테고리 필터
+        if (currentCategory === 'fav') {
+          if (!favorites.includes(item.id)) return false;
+        } else if (currentCategory !== 'all') {
           if (item.category !== currentCategory) return false;
         }
 
-        // Search filtering
-        if (query) {
-          const matchKo = item.ko.toLowerCase().includes(query);
-          const matchJp = item.jp.toLowerCase().includes(query);
-          const matchFuri = (item.furigana || "").toLowerCase().includes(query);
-          const matchPron = item.pron.toLowerCase().includes(query);
-          return matchKo || matchJp || matchFuri || matchPron;
-        }
-
-        return true;
+        // 검색어 필터
+        if (!query) return true;
+        return (
+          item.ko.toLowerCase().includes(query) ||
+          item.jp.toLowerCase().includes(query) ||
+          item.furigana.toLowerCase().includes(query) ||
+          item.pronunciation.toLowerCase().includes(query)
+        );
       });
 
+      totalCount.textContent = `총 ${filtered.length}개`;
+
       if (filtered.length === 0) {
-        vocabContainer.innerHTML = `
-          <div class="empty-state">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <p>해당하는 표현이 없습니다.</p>
-          </div>
-        `;
+        cardList.innerHTML = `<div class="empty-state">해당하는 단어 표현이 없습니다.</div>`;
         return;
       }
 
-      vocabContainer.innerHTML = filtered.map(item => {
-        const isBookmarked = bookmarks.has(item.id);
-        return `
-          <div class="card" data-id="${item.id}">
-            <div class="card-top">
-              <div class="korean-title">${item.ko}</div>
-              <div class="card-actions">
-                <!-- TTS Speaker -->
-                <button class="speaker-btn" onclick="event.stopPropagation(); speakJapanese('${item.jp.replace(/'/g, "\\'")}')" aria-label="발음 듣기">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                  </svg>
-                </button>
-                <!-- Show Big for Staff -->
-                <button class="show-btn" onclick="event.stopPropagation(); openFullscreen('${item.id}')" aria-label="크게 보기">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path>
-                  </svg>
-                </button>
-                <!-- Copy Text -->
-                <button class="copy-btn" onclick="event.stopPropagation(); copyText('${item.jp.replace(/'/g, "\\'")}')" aria-label="문장 복사">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                  </svg>
-                </button>
-                <!-- Bookmark Star -->
-                <button class="star-btn ${isBookmarked ? 'bookmarked' : ''}" onclick="event.stopPropagation(); toggleBookmark('${item.id}')" aria-label="즐겨찾기">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="${isBookmarked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Japanese details click to show fullscreen -->
-            <div class="jp-block" onclick="openFullscreen('${item.id}')">
-              ${item.furigana ? `<div class="furigana-text">${item.furigana}</div>` : ''}
-              <div class="kanji-text">${item.jp}</div>
-              <div class="pronunciation-box">
-                <span>🗣️ ${item.pron}</span>
-              </div>
-            </div>
-
-            <div class="card-footer">
-              <span class="tip-badge">💡 ${item.tip || item.category}</span>
-              <span>터치하여 크게 보기</span>
+      filtered.forEach(item => {
+        const isFav = favorites.includes(item.id);
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-top">
+            <span class="tag">${item.category}</span>
+            <div class="card-actions">
+              <button class="icon-btn tts-btn" title="발음 듣기">🔊</button>
+              <button class="icon-btn fs-btn" title="크게 보여주기">⛶</button>
+              <button class="icon-btn fav-btn ${isFav ? 'starred' : ''}" title="즐겨찾기">${isFav ? '★' : '☆'}</button>
             </div>
           </div>
+          <div class="ko-text">${item.ko}</div>
+          <div class="jp-box">
+            <div class="furigana">${item.furigana}</div>
+            <div class="jp-text">${item.jp}</div>
+            <div class="pronunciation">💬 ${item.pronunciation}</div>
+          </div>
+          ${item.tip ? `<div class="tip">💡 ${item.tip}</div>` : ''}
         `;
-      }).join('');
+
+        // TTS 발음 듣기
+        card.querySelector('.tts-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          speak(item.jp);
+        });
+
+        // 크게 보기 버튼 및 카드 터치 이벤트
+        card.querySelector('.fs-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          openFullScreen(item);
+        });
+
+        card.querySelector('.jp-box').addEventListener('click', () => {
+          openFullScreen(item);
+        });
+
+        // 즐겨찾기 토글
+        card.querySelector('.fav-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleFav(item.id);
+        });
+
+        cardList.appendChild(card);
+      });
     }
 
-    // Fullscreen Staff View
-    function openFullscreen(id) {
-      const item = fullVocabs.find(v => v.id === id);
-      if (!item) return;
-      activeFsItem = item;
-      document.getElementById("fsFuri").textContent = item.furigana || "";
-      document.getElementById("fsJp").textContent = item.jp;
-      document.getElementById("fsPron").textContent = item.pron;
-      document.getElementById("fsKo").textContent = item.ko;
-      fullscreenOverlay.classList.add("active");
+    // TTS 발음 합성 (오프라인 지원)
+    function speak(text) {
+      if (!('speechSynthesis' in window)) {
+        alert('이 기기는 음성 합성을 지원하지 않습니다.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      utterance.rate = 0.85; // 여행자를 위한 또박또박 속도
+      window.speechSynthesis.speak(utterance);
     }
 
-    closeFsBtn.addEventListener("click", () => {
-      fullscreenOverlay.classList.remove("active");
-      activeFsItem = null;
-    });
-
-    fsSpeakBtn.addEventListener("click", () => {
-      if (activeFsItem) speakJapanese(activeFsItem.jp);
-    });
-
-    // Category Filter Click
-    categoryScroll.addEventListener("click", (e) => {
-      const btn = e.target.closest(".cat-pill");
-      if (!btn) return;
-      document.querySelectorAll(".cat-pill").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-      currentCategory = btn.dataset.cat;
-      render();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Realtime Search
-    searchInput.addEventListener("input", (e) => {
-      searchQuery = e.target.value;
-      render();
-    });
-
-    // Theme Toggle Handler
-    function applyTheme(isDark) {
-      if (isDark) {
-        document.documentElement.setAttribute("data-theme", "dark");
-        themeBtn.innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>`;
+    // 즐겨찾기 토글
+    function toggleFav(id) {
+      const idx = favorites.indexOf(id);
+      if (idx > -1) {
+        favorites.splice(idx, 1);
       } else {
-        document.documentElement.removeAttribute("data-theme");
-        themeBtn.innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>`;
+        favorites.push(id);
       }
+      saveData();
+      render();
     }
 
-    themeBtn.addEventListener("click", () => {
-      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-      applyTheme(!isDark);
-      localStorage.setItem(STORAGE_KEY_THEME, !isDark ? "dark" : "light");
+    // 카테고리 탭 클릭
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.cat;
+        render();
+      });
     });
 
-    // Modal Control (Add Word)
-    addBtn.addEventListener("click", () => addModal.classList.add("active"));
-    const closeModal = () => addModal.classList.remove("active");
-    closeModalBtn.addEventListener("click", closeModal);
-    cancelModalBtn.addEventListener("click", closeModal);
+    // 실시간 검색
+    searchInput.addEventListener('input', render);
 
-    addForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const newVocab = {
-        id: "c_" + Date.now(),
-        category: document.getElementById("modalCat").value,
-        ko: document.getElementById("modalKo").value.trim(),
-        jp: document.getElementById("modalJp").value.trim(),
-        furigana: document.getElementById("modalFuri").value.trim(),
-        pron: document.getElementById("modalPron").value.trim(),
-        tip: document.getElementById("modalTip").value.trim() || "직접 추가한 표현"
-      };
-
-      customVocabs.unshift(newVocab);
-      localStorage.setItem(STORAGE_KEY_CUSTOM, JSON.stringify(customVocabs));
-      
-      addForm.reset();
-      closeModal();
-      refreshData();
-      showToast("새 표현이 성공적으로 추가되었습니다! 🎉");
+    // 풀스크린 모달 제어
+    const fsModal = document.getElementById('fsModal');
+    function openFullScreen(item) {
+      document.getElementById('fsJp').textContent = item.jp;
+      document.getElementById('fsFuri').textContent = item.furigana;
+      document.getElementById('fsKo').textContent = item.ko;
+      document.getElementById('fsPron').textContent = item.pronunciation;
+      fsModal.classList.add('active');
+    }
+    document.getElementById('closeFsModal').addEventListener('click', () => {
+      fsModal.classList.remove('active');
     });
 
-    // Window Load Init
-    window.addEventListener("DOMContentLoaded", () => {
-      // Restore Theme
-      const savedTheme = localStorage.getItem(STORAGE_KEY_THEME);
-      if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-        applyTheme(true);
+    // 새 단어 추가 모달 제어
+    const addModal = document.getElementById('addModal');
+    document.getElementById('openAddModal').addEventListener('click', () => {
+      addModal.classList.add('active');
+    });
+    document.getElementById('closeAddModal').addEventListener('click', () => {
+      addModal.classList.remove('active');
+    });
+
+    document.getElementById('saveNewWord').addEventListener('click', () => {
+      const ko = document.getElementById('newKo').value.trim();
+      const jp = document.getElementById('newJp').value.trim();
+      const furi = document.getElementById('newFuri').value.trim();
+      const pron = document.getElementById('newPron').value.trim();
+      const tip = document.getElementById('newTip').value.trim();
+      const cat = document.getElementById('newCat').value;
+
+      if (!ko || !jp) {
+        alert('한국어 뜻과 일본어 문장은 필수 입력입니다.');
+        return;
       }
-      refreshData();
+
+      const newId = Date.now();
+      vocabList.unshift({
+        id: newId,
+        category: cat,
+        ko: ko,
+        jp: jp,
+        furigana: furi || jp,
+        pronunciation: pron || '',
+        tip: tip || ''
+      });
+
+      saveData();
+      render();
+
+      // 인풋 비우기 및 모달 닫기
+      document.getElementById('newKo').value = '';
+      document.getElementById('newJp').value = '';
+      document.getElementById('newFuri').value = '';
+      document.getElementById('newPron').value = '';
+      document.getElementById('newTip').value = '';
+      addModal.classList.remove('active');
     });
+
+    // 초기 렌더링
+    render();
   </script>
 </body>
 </html>
